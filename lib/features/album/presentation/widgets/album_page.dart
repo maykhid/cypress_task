@@ -1,3 +1,4 @@
+import 'package:cypress_task/core/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
 class AlbumPage extends StatefulWidget {
@@ -13,6 +14,11 @@ class _AlbumPageState extends State<AlbumPage> {
     return  Scaffold(
       appBar: AppBar(
         title: const Text('Album App'),
+      ),
+      body: SizedBox(
+        height: context.height,
+        width: context.width,
+        // child: ,
       ),
     );
   }
