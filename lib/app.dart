@@ -1,4 +1,4 @@
-import 'package:cypress_task/features/album/presentation/widgets/album_page.dart';
+import 'package:cypress_task/features/album/presentation/album_page.dart';
 import 'package:flutter/material.dart';
 
 class AlbumApp extends StatelessWidget {
