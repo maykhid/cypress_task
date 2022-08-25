@@ -1,5 +1,8 @@
+import 'package:cypress_task/features/album/cubit/album_cubit.dart';
 import 'package:cypress_task/features/album/presentation/album_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class AlbumApp extends StatelessWidget {
   const AlbumApp({Key? key}) : super(key: key);
@@ -21,7 +24,14 @@ class AlbumApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const AlbumPage(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<AlbumCubit>(
+            create: (context) => GetIt.instance<AlbumCubit>(),
+          ),
+        ],
+        child: const AlbumPage(),
+      ),
     );
   }
 }

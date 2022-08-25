@@ -4,11 +4,13 @@ import 'package:cypress_task/features/album/data/repositories/album_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+import '../../../dependency_injector.dart';
+
 part 'album_state.dart';
 
 class AlbumCubit extends Cubit<AlbumState> {
   AlbumCubit({AlbumRepo? albumRepo})
-      : _albumRepo = albumRepo,
+      : _albumRepo = albumRepo ?? di(),
         super(AlbumInitial());
 
   final AlbumRepo? _albumRepo;

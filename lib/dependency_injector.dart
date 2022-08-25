@@ -20,7 +20,7 @@ Future<void> init() async {
 
   // datasource
   di.registerLazySingleton<AlbumDataSrc>(() => AlbumRemoteDataSrcImpl());
-  di.registerLazySingleton<AlbumDataSrc>(() => AlbumLocalDataSrcImpl());
+  // di.registerLazySingleton<AlbumDataSrc>(() => AlbumLocalDataSrcImpl());
 
   // core
   di.registerLazySingleton<NetworkInfo>(
