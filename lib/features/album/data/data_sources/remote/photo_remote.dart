@@ -1,6 +1,7 @@
 import 'package:cypress_task/features/album/data/model/response/photo_response.dart';
 
 import '../../../../../core/data/api.dart';
+import '../../../../../core/data/exception.dart';
 import '../../../../../core/utils/config.dart';
 import '../photo_data_src.dart';
 
@@ -11,7 +12,7 @@ class PhotoRemoteDataSrcImpl implements PhotoDataSrc{
       final res = await ApiRequest.get(photoPointer);
       return photoResponseFromMap(res.body);
     } catch (e) {
-      throw Exception();
+      throw ServerException();
     }
   }
   
