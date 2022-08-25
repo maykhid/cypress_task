@@ -26,6 +26,7 @@ class AlbumRepoImpl extends AlbumRepo {
     if (await networkInfo.isConnected ?? false) {
       try {
         final remote = await albumRemoteDataSrc.getAlbums();
+        await albumLocalDataSrc.cacheAlbum(remote);
         return Right(remote);
       } on ServerException {
         return Left(ServerFailure());

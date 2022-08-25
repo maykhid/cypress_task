@@ -5,7 +5,7 @@ import '../../../../../core/data/exception.dart';
 
 abstract class AlbumLocalDataSrc {
   Future<List<AlbumResponse>>? getCachedAlbums();
-  Future<void> cacheAlbum(List<AlbumResponse> response);
+  Future<void> cacheAlbum(List<AlbumResponse>? response);
 }
 
 const albumStorageKey = '___ALBUM__KEY___';
@@ -22,12 +22,14 @@ class AlbumLocalDataSrcImpl implements AlbumLocalDataSrc {
     if (jsonResponse != null) {
       return Future.value(albumResponseFromMap(jsonResponse));
     } else {
+      print('fail');
       throw CacheException();
     }
   }
 
   @override
-  Future<void> cacheAlbum(List<AlbumResponse> response) {
-    return prefs.setString(albumStorageKey, albumResponseToMap(response));
+  Future<void> cacheAlbum(List<AlbumResponse>? response) async {
+    print('performed storage');
+    prefs.setString(albumStorageKey, albumResponseToMap(response!));
   }
 }

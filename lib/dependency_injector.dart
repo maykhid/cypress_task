@@ -41,6 +41,7 @@ Future<void> init() async {
   );
 
   // external
+  final sharedPreferences = await SharedPreferences.getInstance();
   di.registerLazySingleton(() => DataConnectionChecker());
-  di.registerLazySingleton(() => SharedPreferences);
+  di.registerLazySingleton(() => sharedPreferences);
 }

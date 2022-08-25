@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
+import 'features/album/cubit/photo_cubit.dart';
+
 class AlbumApp extends StatelessWidget {
   const AlbumApp({Key? key}) : super(key: key);
 
@@ -27,7 +29,10 @@ class AlbumApp extends StatelessWidget {
       home: MultiBlocProvider(
         providers: [
           BlocProvider<AlbumCubit>(
-            create: (context) => GetIt.instance<AlbumCubit>(),
+            create: (context) => GetIt.instance<AlbumCubit>()..getAlbums(),
+          ),
+          BlocProvider<PhotoCubit>(
+            create: (context) => GetIt.instance<PhotoCubit>()..getPhotos(),
           ),
         ],
         child: const AlbumPage(),

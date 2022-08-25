@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class PhotoLocalDataSrc {
   Future<List<PhotoResponse>>? getCachedPhotos();
-  Future<void> cachePhotos(List<PhotoResponse> response);
+  Future<void> cachePhotos(List<PhotoResponse>? response);
 }
 
 const photoStorageKey = '___PHOTO__KEY___';
@@ -26,7 +26,7 @@ class PhotoLocalDataSrcImpl implements PhotoLocalDataSrc {
   }
 
   @override
-  Future<void> cachePhotos(List<PhotoResponse> response) {
-    return prefs.setString(photoStorageKey, photoResponseToMap(response));
+  Future<void> cachePhotos(List<PhotoResponse>? response) {
+    return prefs.setString(photoStorageKey, photoResponseToMap(response!));
   }
 }

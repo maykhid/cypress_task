@@ -1,13 +1,15 @@
-import 'package:http/http.dart' as http;
-
-import 'package:cypress_task/features/album/data/data_sources/album_data_src.dart';
-
 import '../../../../../core/data/api.dart';
 import '../../../../../core/data/exception.dart';
 import '../../../../../core/utils/config.dart';
 import '../../model/response/album_response.dart';
 
-class AlbumRemoteDataSrcImpl extends AlbumDataSrc {
+import 'package:cypress_task/features/album/data/model/response/album_response.dart';
+
+abstract class AlbumRemoteDataSrc {
+  Future<List<AlbumResponse>>? getAlbums();
+}
+
+class AlbumRemoteDataSrcImpl extends AlbumRemoteDataSrc {
   @override
   Future<List<AlbumResponse>>? getAlbums() async {
     try {

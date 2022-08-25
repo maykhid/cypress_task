@@ -27,6 +27,7 @@ class PhotoRepoImpl extends PhotoRepo {
     if (await networkInfo.isConnected ?? false) {
       try {
         final remote = await photoRemoteDataSrc.getPhotos();
+        await photoLocalDataSrc.cachePhotos(remote);
         return Right(remote);
       } on ServerException {
         return Left(ServerFailure());
