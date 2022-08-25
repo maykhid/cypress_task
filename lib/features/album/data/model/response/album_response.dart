@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class AlbumResponse {
   int? userId;
   int? id;
@@ -19,3 +21,7 @@ class AlbumResponse {
     return data;
   }
 }
+
+List<AlbumResponse> albumResponseFromMap(String str) => List<AlbumResponse>.from(json.decode(str).map((x) => AlbumResponse.fromJson(x)));
+
+String albumResponseToMap(List<AlbumResponse> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
