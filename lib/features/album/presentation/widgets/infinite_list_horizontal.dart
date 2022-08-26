@@ -1,3 +1,5 @@
+import 'package:carousel_slider/carousel_slider.dart';
+
 import '../../../../core/utils/extensions.dart';
 import '../../blocs/photos_bloc/photos_bloc_bloc.dart';
 import 'infinite_list_horizontal_content.dart';
@@ -27,18 +29,15 @@ class _InfiniteListHorizontalState extends State<InfiniteListHorizontal> {
     return BlocBuilder<PhotosBloc, PhotosBlocState>(
       builder: (context, state) {
         if (state.status == PhotosStatus.success) {
-          return SizedBox(
-            height: context.height * 0.2,
-            width: context.width,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) =>
-                  InfiniteListHorizontalContent(index: index),
-              itemCount: state.photos.length,
-              separatorBuilder: (context, index) => SizedBox(
-                // color: Colors.black,
-                width: context.height * 0.02,
-              ),
+          return CarouselSlider.builder(
+            itemCount: state.photos.length,
+            itemBuilder: (context, index, realIndex) =>
+                InfiniteListHorizontalContent(index: index),
+            options: CarouselOptions(
+              padEnds: false,
+              height: context.height * 0.2,
+              viewportFraction: 0.45,
+              pageSnapping: false,
             ),
           );
         }
