@@ -1,10 +1,10 @@
+import 'features/album/blocs/photos_bloc/photos_bloc_bloc.dart';
 import 'features/album/presentation/album_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import 'features/album/blocs/albums_bloc/album_bloc.dart';
-import 'features/album/blocs/bloc/photos_bloc_bloc.dart';
 
 class AlbumApp extends StatelessWidget {
   const AlbumApp({Key? key}) : super(key: key);

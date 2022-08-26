@@ -1,3 +1,4 @@
+import 'features/album/blocs/photos_bloc/photos_bloc_bloc.dart';
 import 'features/album/data/data_sources/remote/album_remote.dart';
 import 'features/album/data/repositories/album_repo.dart';
 import 'features/album/data/repositories/photo_repo.dart';
@@ -7,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/data/network_info.dart';
 import 'features/album/blocs/albums_bloc/album_bloc.dart';
-import 'features/album/blocs/bloc/photos_bloc_bloc.dart';
 import 'features/album/data/data_sources/local/album_local.dart';
 import 'features/album/data/data_sources/local/photo_local.dart';
 import 'features/album/data/data_sources/remote/photo_remote.dart';

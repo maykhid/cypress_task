@@ -1,5 +1,5 @@
 import '../../../../core/utils/extensions.dart';
-import '../../blocs/bloc/photos_bloc_bloc.dart';
+import '../../blocs/photos_bloc/photos_bloc_bloc.dart';
 import 'infinite_list_horizontal_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
