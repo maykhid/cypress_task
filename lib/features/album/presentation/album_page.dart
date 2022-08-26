@@ -1,8 +1,10 @@
-import 'package:cypress_task/core/utils/extensions.dart';
-import 'package:cypress_task/features/album/cubit/album_cubit.dart';
+import '../../../core/utils/extensions.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/albums_bloc/album_bloc.dart';
 import 'widgets/infinite_list_vertical.dart';
 
 class AlbumPage extends StatefulWidget {
@@ -19,12 +21,12 @@ class _AlbumPageState extends State<AlbumPage> {
       appBar: AppBar(
         title: const Text('Album App'),
       ),
-      body: BlocBuilder<AlbumCubit, AlbumState>(
+      body: BlocBuilder<AlbumBloc, AlbumState>(
         builder: (context, state) {
           return SizedBox(
             height: context.height,
             width: context.width,
-            child: state is AlbumLoaded
+            child: state.status == AlbumStatus.success
                 ? const InfiniteListVertical()
                 : const Center(
                     child: CircularProgressIndicator(),

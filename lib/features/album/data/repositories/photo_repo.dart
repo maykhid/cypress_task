@@ -1,4 +1,4 @@
-import 'package:cypress_task/features/album/data/data_sources/local/photo_local.dart';
+import '../data_sources/local/photo_local.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/data/error.dart';

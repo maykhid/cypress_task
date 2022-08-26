@@ -1,11 +1,11 @@
-import 'package:cypress_task/core/data/error.dart';
-import 'package:cypress_task/core/data/exception.dart';
-import 'package:cypress_task/features/album/data/data_sources/local/album_local.dart';
-import 'package:cypress_task/features/album/data/model/response/album_response.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/data/error.dart';
+import '../../../../core/data/exception.dart';
 import '../../../../core/data/network_info.dart';
+import '../data_sources/local/album_local.dart';
 import '../data_sources/remote/album_remote.dart';
+import '../model/response/album_response.dart';
 
 abstract class AlbumRepo {
   Future<Either<Failure, List<AlbumResponse>?>>? getAlbums();

@@ -1,11 +1,13 @@
 import 'dart:convert';
 
-class AlbumResponse {
-  int? userId;
-  int? id;
-  String? title;
+import 'package:equatable/equatable.dart';
 
-  AlbumResponse({this.userId, this.id, this.title});
+class AlbumResponse extends Equatable{
+  late int userId;
+  late int id;
+  late String title;
+
+  AlbumResponse({required this.userId, required this.id, required this.title});
 
   AlbumResponse.fromJson(Map<String, dynamic> json) {
     userId = json['userId'];
@@ -20,6 +22,9 @@ class AlbumResponse {
     data['title'] = title;
     return data;
   }
+  
+  @override
+  List<Object?> get props => [id, title, userId];
 }
 
 List<AlbumResponse> albumResponseFromMap(String str) => List<AlbumResponse>.from(json.decode(str).map((x) => AlbumResponse.fromJson(x)));

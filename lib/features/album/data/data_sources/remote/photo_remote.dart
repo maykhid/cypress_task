@@ -1,8 +1,7 @@
-import 'package:cypress_task/features/album/data/model/response/photo_response.dart';
-
 import '../../../../../core/data/api.dart';
 import '../../../../../core/data/exception.dart';
 import '../../../../../core/utils/config.dart';
+import '../../model/response/photo_response.dart';
 
 
 

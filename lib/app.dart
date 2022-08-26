@@ -1,10 +1,10 @@
-import 'package:cypress_task/features/album/cubit/album_cubit.dart';
-import 'package:cypress_task/features/album/presentation/album_page.dart';
+import 'features/album/presentation/album_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import 'features/album/cubit/photo_cubit.dart';
+import 'features/album/blocs/albums_bloc/album_bloc.dart';
+import 'features/album/blocs/bloc/photos_bloc_bloc.dart';
 
 class AlbumApp extends StatelessWidget {
   const AlbumApp({Key? key}) : super(key: key);
@@ -28,11 +28,11 @@ class AlbumApp extends StatelessWidget {
       ),
       home: MultiBlocProvider(
         providers: [
-          BlocProvider<AlbumCubit>(
-            create: (context) => GetIt.instance<AlbumCubit>()..getAlbums(),
+          BlocProvider<AlbumBloc>(
+            create: (context) => GetIt.instance<AlbumBloc>()..add(AlbumFetched()),
           ),
-          BlocProvider<PhotoCubit>(
-            create: (context) => GetIt.instance<PhotoCubit>()..getPhotos(),
+          BlocProvider<PhotosBloc>(
+            create: (context) => GetIt.instance<PhotosBloc>()..add(PhotosFetched()),
           ),
         ],
         child: const AlbumPage(),

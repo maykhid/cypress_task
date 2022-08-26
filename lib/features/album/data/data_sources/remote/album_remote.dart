@@ -3,7 +3,7 @@ import '../../../../../core/data/exception.dart';
 import '../../../../../core/utils/config.dart';
 import '../../model/response/album_response.dart';
 
-import 'package:cypress_task/features/album/data/model/response/album_response.dart';
+import '../../model/response/album_response.dart';
 
 abstract class AlbumRemoteDataSrc {
   Future<List<AlbumResponse>>? getAlbums();
