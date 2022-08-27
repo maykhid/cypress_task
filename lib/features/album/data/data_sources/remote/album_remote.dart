@@ -1,8 +1,8 @@
+import 'dart:developer';
+
 import '../../../../../core/data/api.dart';
 import '../../../../../core/data/exception.dart';
 import '../../../../../core/utils/config.dart';
-import '../../model/response/album_response.dart';
-
 import '../../model/response/album_response.dart';
 
 abstract class AlbumRemoteDataSrc {
@@ -16,6 +16,7 @@ class AlbumRemoteDataSrcImpl extends AlbumRemoteDataSrc {
       final res = await ApiRequest.get(albumPointer);
       return albumResponseFromMap(res.body);
     } catch (e) {
+      log('Error fetching albums...');
       throw ServerException();
     }
   }

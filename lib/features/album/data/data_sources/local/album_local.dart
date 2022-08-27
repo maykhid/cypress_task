@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../../model/response/album_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,14 +24,14 @@ class AlbumLocalDataSrcImpl implements AlbumLocalDataSrc {
     if (jsonResponse != null) {
       return Future.value(albumResponseFromMap(jsonResponse));
     } else {
-      print('fail');
+      log('Error retrieving cached albums...');
       throw CacheException();
     }
   }
 
   @override
   Future<void> cacheAlbum(List<AlbumResponse>? response) async {
-    print('performed storage');
+    log('Album stored in cache successfully...');
     prefs.setString(albumStorageKey, albumResponseToMap(response!));
   }
 }

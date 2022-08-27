@@ -1,6 +1,6 @@
 part of 'photos_bloc_bloc.dart';
 
-enum PhotosStatus { initial, success, failure }
+enum PhotosStatus { initial, success, failure } // possible states for our calls
 
 class PhotosBlocState extends Equatable {
   const PhotosBlocState({

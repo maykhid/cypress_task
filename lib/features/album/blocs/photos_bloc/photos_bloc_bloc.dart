@@ -12,18 +12,17 @@ class PhotosBloc extends Bloc<PhotosEvent, PhotosBlocState> {
   PhotosBloc({PhotoRepo? photoRepo, PhotoLocalDataSrc? photoLocalDataSrc})
       : super(const PhotosBlocState()) {
     on<PhotosEvent>((event, emit) async {
-
+      /// On [PhotosStatus.initial] Gets data from either server or cache (depending on if internet connection exists)
+      ///
       if (state.status == PhotosStatus.initial) {
         final photos = await photoRepo!.getPhotos();
         return emit(photos!.fold(
             (l) => state.copyWith(status: PhotosStatus.failure),
             (r) => state.copyWith(
-                status: PhotosStatus.success,
-                photos: r,
-                // hasReachedMax: false,
+                  status: PhotosStatus.success,
+                  photos: r,
                 )));
       }
-
     });
   }
 }

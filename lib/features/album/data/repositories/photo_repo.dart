@@ -24,15 +24,24 @@ class PhotoRepoImpl extends PhotoRepo {
 
   @override
   Future<Either<Failure, List<PhotoResponse>?>>? getPhotos() async {
+    // Try loading data from the api if there is internet connection if not
+    // then get cached data
+    // if for some reason api call fails get data from cache
     if (await networkInfo.isConnected ?? false) {
       try {
         final remote = await photoRemoteDataSrc.getPhotos();
         await photoLocalDataSrc.cachePhotos(remote);
         return Right(remote);
       } on ServerException {
-        return Left(ServerFailure());
+        try {
+          final local = await photoLocalDataSrc.getCachedPhotos();
+          return Right(local);
+        } on CacheException {
+          return Left(CacheFailure());
+        }
       }
     } else {
+      // if no internet get cached data and throw cache exception on error
       try {
         final local = await photoLocalDataSrc.getCachedPhotos();
         return Right(local);

@@ -23,15 +23,24 @@ class AlbumRepoImpl extends AlbumRepo {
 
   @override
   Future<Either<Failure, List<AlbumResponse>?>>? getAlbums() async {
+    // Try loading data from the api if there is internet connection if not
+    // then get cached data
+    // if for some reason api call fails get data from cache
     if (await networkInfo.isConnected ?? false) {
       try {
         final remote = await albumRemoteDataSrc.getAlbums();
         await albumLocalDataSrc.cacheAlbum(remote);
         return Right(remote);
       } on ServerException {
-        return Left(ServerFailure());
+        try {
+          final local = await albumLocalDataSrc.getCachedAlbums();
+          return Right(local);
+        } on CacheException {
+          return Left(CacheFailure());
+        }
       }
     } else {
+       // if no internet get cached data and throw cache exception on error
       try {
         final local = await albumLocalDataSrc.getCachedAlbums();
         return Right(local);

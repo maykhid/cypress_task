@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../../../../../core/data/api.dart';
 import '../../../../../core/data/exception.dart';
 import '../../../../../core/utils/config.dart';
@@ -16,6 +18,7 @@ class PhotoRemoteDataSrcImpl implements PhotoRemoteDataSrc{
       final res = await ApiRequest.get(photoPointer);
       return photoResponseFromMap(res.body);
     } catch (e) {
+      log('Error fetching photos...');
       throw ServerException();
     }
   }
