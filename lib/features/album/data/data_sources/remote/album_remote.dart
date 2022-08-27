@@ -13,6 +13,7 @@ class AlbumRemoteDataSrcImpl extends AlbumRemoteDataSrc {
   @override
   Future<List<AlbumResponse>>? getAlbums() async {
     try {
+      log('Retrieving albums - remote data...');
       final res = await ApiRequest.get(albumPointer);
       return albumResponseFromMap(res.body);
     } catch (e) {

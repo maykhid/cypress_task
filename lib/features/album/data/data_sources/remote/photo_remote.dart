@@ -15,6 +15,7 @@ class PhotoRemoteDataSrcImpl implements PhotoRemoteDataSrc{
   @override
   Future<List<PhotoResponse>>? getPhotos() async {
     try {
+      log('Retrieving photos - remote data...');
       final res = await ApiRequest.get(photoPointer);
       return photoResponseFromMap(res.body);
     } catch (e) {
