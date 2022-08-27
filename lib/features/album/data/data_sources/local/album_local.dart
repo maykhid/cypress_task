@@ -22,6 +22,7 @@ class AlbumLocalDataSrcImpl implements AlbumLocalDataSrc {
     final jsonResponse = prefs.getString(albumStorageKey);
 
     if (jsonResponse != null) {
+      log('Retrieving cached albums...');
       return Future.value(albumResponseFromMap(jsonResponse));
     } else {
       log('Error retrieving cached albums...');

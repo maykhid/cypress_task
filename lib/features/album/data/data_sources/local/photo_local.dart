@@ -21,6 +21,7 @@ class PhotoLocalDataSrcImpl implements PhotoLocalDataSrc {
     final jsonResponse = prefs.getString(photoStorageKey);
 
     if (jsonResponse != null) {
+      log('Retrieving cached photos...');
       return Future.value(photoResponseFromMap(jsonResponse));
     } else {
       log('Error retrieving cached photos...');
