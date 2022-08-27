@@ -10,9 +10,8 @@ part 'photos_bloc_state.dart';
 
 class PhotosBloc extends Bloc<PhotosEvent, PhotosBlocState> {
   PhotosBloc({PhotoRepo? photoRepo, PhotoLocalDataSrc? photoLocalDataSrc})
-      : super(PhotosBlocState()) {
+      : super(const PhotosBlocState()) {
     on<PhotosEvent>((event, emit) async {
-      if (state.hasReachedMax ?? false) return;
 
       if (state.status == PhotosStatus.initial) {
         final photos = await photoRepo!.getPhotos();
@@ -21,21 +20,10 @@ class PhotosBloc extends Bloc<PhotosEvent, PhotosBlocState> {
             (r) => state.copyWith(
                 status: PhotosStatus.success,
                 photos: r,
-                hasReachedMax: false)));
+                // hasReachedMax: false,
+                )));
       }
 
-      try {
-        final cachedPhotos = await photoLocalDataSrc!.getCachedPhotos();
-        if (cachedPhotos != null) {
-          emit(state.copyWith(
-            status: PhotosStatus.success,
-            photos: List.of(state.photos)..addAll(cachedPhotos),
-            hasReachedMax: false,
-          ));
-        }
-      } catch (_) {
-        emit(state.copyWith(status: PhotosStatus.failure));
-      }
     });
   }
 }

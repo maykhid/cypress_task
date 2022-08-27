@@ -16,13 +16,6 @@ class InfiniteListHorizontal extends StatefulWidget {
 }
 
 class _InfiniteListHorizontalState extends State<InfiniteListHorizontal> {
-  final _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    _scrollController.addListener(_onScroll);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,24 +38,5 @@ class _InfiniteListHorizontalState extends State<InfiniteListHorizontal> {
         return const Center(child: CircularProgressIndicator());
       },
     );
-  }
-
-  @override
-  void dispose() {
-    _scrollController
-      ..removeListener(_onScroll)
-      ..dispose();
-    super.dispose();
-  }
-
-  void _onScroll() {
-    if (_isBottom) context.read<PhotosBloc>().add(PhotosFetched());
-  }
-
-  bool get _isBottom {
-    if (!_scrollController.hasClients) return false;
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll * 0.9);
   }
 }
