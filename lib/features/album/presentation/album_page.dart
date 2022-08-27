@@ -42,7 +42,7 @@ class _AlbumPageState extends State<AlbumPage> {
                 height: context.height,
                 width: context.width,
                 child: const Center(
-                    child: Text('Please check internet connection!')),
+                    child: Text('Please check your internet connection!')),
               );
           }
         },
