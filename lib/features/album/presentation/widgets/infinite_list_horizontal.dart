@@ -35,7 +35,7 @@ class _InfiniteListHorizontalState extends State<InfiniteListHorizontal> {
           );
         }
 
-        return const Center(child: CircularProgressIndicator());
+        return  Center(child: const CircularProgressIndicator().paddingOnly(top: context.height * 0.065));
       },
     );
   }
