@@ -21,7 +21,8 @@ class InfiniteListHorizontalContent extends StatelessWidget {
             height: context.height,
             width: context.width * 0.4,
             fit: BoxFit.cover,
-            imageUrl: state.photos[index].thumbnailUrl.toString(),
+            // httpHeaders: const {"Accept": "*/*", "User-Agent": "Mozilla/5.0 (Linux; Android 10; SM-G996U Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36"},
+            imageUrl: state.photos[index].url.toString(),
             progressIndicatorBuilder: (context, url, downloadProgress) =>
                 Image.asset('assets/images/150x150.png'),
             errorWidget: (context, url, error) =>

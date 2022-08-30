@@ -34,9 +34,13 @@ class _InfiniteListVerticalContentState
               children: [
                 const VerticalSpace(),
                 Text(
-                  '  Album Title ${state.albums[widget.index].id}',
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w500),
+                  ' ${state.albums[widget.index].title}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: context.height * 0.025,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 const InfiniteListHorizontal(),
               ],
