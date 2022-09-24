@@ -23,7 +23,7 @@ Future<void> init() async {
   di.registerLazySingleton<AlbumRepo>(() => AlbumRepoImpl(
       albumRemoteDataSrc: di(), networkInfo: di(), albumLocalDataSrc: di()));
 
-  di.registerLazySingleton<PhotoRepo>(() => PhotoRepoImpl(
+  di.registerFactory<PhotoRepo>(() => PhotoRepoImpl(
       photoRemoteDataSrc: di(), networkInfo: di(), photoLocalDataSrc: di()));
 
   // datasource

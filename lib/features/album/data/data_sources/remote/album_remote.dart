@@ -17,6 +17,7 @@ class AlbumRemoteDataSrcImpl extends AlbumRemoteDataSrc {
       final res = await ApiRequest.get(albumPointer);
       return albumResponseFromMap(res.body);
     } catch (e) {
+      print(e);
       log('Error fetching albums...');
       throw ServerException();
     }

@@ -42,7 +42,7 @@ class _InfiniteListVerticalContentState
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const InfiniteListHorizontal(),
+                InfiniteListHorizontal(id: state.albums[widget.index].id,),
               ],
             ),
           );

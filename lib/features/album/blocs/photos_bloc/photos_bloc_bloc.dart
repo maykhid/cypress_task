@@ -14,8 +14,11 @@ class PhotosBloc extends Bloc<PhotosEvent, PhotosBlocState> {
     on<PhotosEvent>((event, emit) async {
       /// On [PhotosStatus.initial] Gets data from either server or cache (depending on if internet connection exists)
       ///
+    });
+
+    on<PhotosFetched>((event, emit) async {
       if (state.status == PhotosStatus.initial) {
-        final photos = await photoRepo!.getPhotos();
+        final photos = await photoRepo!.getPhotos(event.albumid!);
         return emit(photos!.fold(
             (l) => state.copyWith(status: PhotosStatus.failure),
             (r) => state.copyWith(

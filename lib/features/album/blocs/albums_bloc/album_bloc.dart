@@ -19,7 +19,7 @@ class AlbumBloc extends Bloc<AlbumEvent, AlbumState> {
 
       if (state.status == AlbumStatus.initial) {
         final albums = await albumRepo!.getAlbums();
-        return emit(albums!.fold(
+         emit(albums!.fold(
             (l) => state.copyWith(status: AlbumStatus.failure),
             (r) => state.copyWith(
                 status: AlbumStatus.success, albums: r, hasReachedMax: false)));

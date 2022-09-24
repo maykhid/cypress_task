@@ -7,4 +7,9 @@ abstract class PhotosEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class PhotosFetched extends PhotosEvent {}
+class PhotosFetched extends PhotosEvent {
+  const PhotosFetched([this.albumid]);
+  final String? albumid;
+  @override
+  List<Object> get props => [];
+}

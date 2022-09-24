@@ -32,7 +32,7 @@ class AlbumApp extends StatelessWidget {
             create: (context) => GetIt.instance<AlbumBloc>()..add(AlbumFetched()),
           ),
           BlocProvider<PhotosBloc>(
-            create: (context) => GetIt.instance<PhotosBloc>()..add(PhotosFetched()),
+            create: (context) => GetIt.instance<PhotosBloc>()
           ),
         ],
         child: const AlbumPage(),
