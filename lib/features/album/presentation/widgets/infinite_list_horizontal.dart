@@ -38,7 +38,6 @@ class _InfiniteListHorizontalState extends State<InfiniteListHorizontal> {
       bloc: bloc,
       builder: (context, state) {
         if (state.status == PhotosStatus.success) {
-          print(state.photos);
           return CarouselSlider.builder(
             itemCount: state.photos.length,
             itemBuilder: (context, index, realIndex) =>

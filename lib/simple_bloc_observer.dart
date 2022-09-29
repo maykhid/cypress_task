@@ -1,4 +1,7 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 
 class SimpleBlocObserver extends BlocObserver {
   @override
@@ -7,12 +10,16 @@ class SimpleBlocObserver extends BlocObserver {
     Transition<dynamic, dynamic> transition,
   ) {
     super.onTransition(bloc, transition);
-    print(transition);
+    if (kDebugMode) {
+      print(transition);
+    }
   }
 
   @override
   void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
-    print(error);
+    if (kDebugMode) {
+      print(error);
+    }
     super.onError(bloc, error, stackTrace);
   }
 }

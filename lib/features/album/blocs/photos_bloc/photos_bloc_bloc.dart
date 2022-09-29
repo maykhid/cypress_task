@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:bloc/bloc.dart';
 import '../../data/data_sources/local/photo_local.dart';
 import '../../data/repositories/photo_repo.dart';

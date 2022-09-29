@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 part of 'album_bloc.dart';
 
 enum AlbumStatus { initial, success, failure } // possible states for our calls

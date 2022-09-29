@@ -9,10 +9,8 @@ class ApiRequest {
 
     if (queryParameters != null) {
       url = Uri.https('jsonplaceholder.typicode.com', pointer, queryParameters);
-      print(url);
     } else {
       url = Uri.parse('$apiBaseUrl$pointer');
-      print(url);
     }
 
     
@@ -21,13 +19,11 @@ class ApiRequest {
       final res = await http.get(url);
 
       if (res.statusCode == 200) {
-        print(res);
         return res;
       } else {
         throw Exception();
       }
     } catch (e) {
-      print(e);
       throw Exception();
     }
   }

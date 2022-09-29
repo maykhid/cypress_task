@@ -18,7 +18,6 @@ class PhotoRemoteDataSrcImpl implements PhotoRemoteDataSrc {
       final res = await ApiRequest.get(photoPointer, queryParameters);
       return photoResponseFromMap(res.body);
     } catch (e) {
-      print(e);
       log('Error fetching photos...');
       throw ServerException();
     }
