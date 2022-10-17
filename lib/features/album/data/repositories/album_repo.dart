@@ -26,7 +26,7 @@ class AlbumRepoImpl extends AlbumRepo {
     // Try loading data from the api if there is internet connection if not
     // then get cached data
     // if for some reason api call fails get data from cache
-    if (await networkInfo.isConnected ?? false) {
+    if (await networkInfo.isConnected != false && await albumLocalDataSrc.getCachedAlbums() == null) {
       try {
         final remote = await albumRemoteDataSrc.getAlbums();
         await albumLocalDataSrc.cacheAlbum(remote);

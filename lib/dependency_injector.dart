@@ -1,3 +1,5 @@
+import 'package:hive/hive.dart';
+
 import 'features/album/blocs/photos_bloc/photos_bloc_bloc.dart';
 import 'features/album/data/data_sources/remote/album_remote.dart';
 import 'features/album/data/repositories/album_repo.dart';
@@ -32,7 +34,7 @@ Future<void> init() async {
   di.registerLazySingleton<AlbumLocalDataSrc>(
       () => AlbumLocalDataSrcImpl(prefs: di()));
   di.registerLazySingleton<PhotoLocalDataSrc>(
-      () => PhotoLocalDataSrcImpl(prefs: di()));
+      () => PhotoLocalDataSrcImpl(photoBox: di()));
 
   // core
   di.registerLazySingleton<NetworkInfo>(
@@ -43,6 +45,8 @@ Future<void> init() async {
 
   // external
   final sharedPreferences = await SharedPreferences.getInstance();
+  final photoBox = await Hive.openBox('photos');
   di.registerLazySingleton(() => DataConnectionChecker());
   di.registerLazySingleton(() => sharedPreferences);
+  di.registerLazySingleton(() => photoBox);
 }

@@ -2,13 +2,22 @@
 
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
+// import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 
-class PhotoResponse extends Equatable {
+part 'photo_response.g.dart';
+
+@HiveType(typeId: 0)
+class PhotoResponse extends HiveObject {
+  @HiveField(0)
   late int albumId;
+  @HiveField(1)
   late int id;
+  @HiveField(2)
   late String title;
+  @HiveField(3)
   late String url;
+  @HiveField(4)
   late String thumbnailUrl;
 
   PhotoResponse(
@@ -36,9 +45,17 @@ class PhotoResponse extends Equatable {
     return data;
   }
 
-  @override
-  List<Object?> get props => [albumId, id, title, url, thumbnailUrl];
+  // @override
+  // List<Object?> get props => [albumId, id, title, url, thumbnailUrl];
 }
+
+// @HiveType(typeId: 1)
+// class AllPhotoResponses extends HiveObject {
+//   @HiveField(1)
+//   List<PhotoResponse> photoResponses;
+
+//   AllPhotoResponses({required this.photoResponses});
+// }
 
 List<PhotoResponse> photoResponseFromMap(String str) =>
     List<PhotoResponse>.from(

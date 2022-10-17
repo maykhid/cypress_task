@@ -1,37 +1,48 @@
 import 'dart:developer';
 
+import 'package:hive/hive.dart';
+
 import '../../../../../core/data/exception.dart';
 import '../../model/response/photo_response.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class PhotoLocalDataSrc {
   Future<List<PhotoResponse>>? getCachedPhotos(String albumId);
   Future<void> cachePhotos(List<PhotoResponse>? response, String albumId);
+  bool boxIsEmpty(String albumId);
 }
 
-const photoStorageKey = '___PHOTO__KEY___';
-
 class PhotoLocalDataSrcImpl implements PhotoLocalDataSrc {
-  final SharedPreferences prefs;
+  final Box photoBox;
 
-  PhotoLocalDataSrcImpl({required this.prefs});
+  PhotoLocalDataSrcImpl({required this.photoBox});
 
   @override
   Future<List<PhotoResponse>>? getCachedPhotos(String albumId) {
-    final jsonResponse = prefs.getString('$photoStorageKey$albumId');
-
-    if (jsonResponse != null) {
-      log('Retrieving cached photos...');
-      return Future.value(photoResponseFromMap(jsonResponse));
-    } else {
-      log('Error retrieving cached photos...');
+    if (boxIsClosed) {
       throw CacheException();
     }
+    log('Album id $albumId ${photoBox.get(albumId)[1]}');
+    return Future.value(List<PhotoResponse>.from(photoBox.get(albumId)));
   }
 
   @override
-  Future<void> cachePhotos(List<PhotoResponse>? response, String albumId) {
-    log('Photos stored in cache successfully...');
-    return prefs.setString('$photoStorageKey$albumId', photoResponseToMap(response!));
+  Future<void> cachePhotos(
+      List<PhotoResponse>? response, String albumId) async {
+    if (boxIsClosed) {
+      throw CacheException();
+    }
+
+    await photoBox.put(albumId, response!);
   }
+
+  @override
+  bool boxIsEmpty(String albumId) {
+    if (boxIsClosed) {
+      throw CacheException();
+    }
+
+    return photoBox.isEmpty;
+  }
+
+  bool get boxIsClosed => !(photoBox.isOpen);
 }
