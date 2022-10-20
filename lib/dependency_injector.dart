@@ -1,3 +1,4 @@
+import 'package:cypress_task/features/album/data/model/response/photo_response.dart';
 import 'package:hive/hive.dart';
 
 import 'features/album/blocs/photos_bloc/photos_bloc_bloc.dart';
@@ -32,7 +33,7 @@ Future<void> init() async {
   di.registerLazySingleton<AlbumRemoteDataSrc>(() => AlbumRemoteDataSrcImpl());
   di.registerLazySingleton<PhotoRemoteDataSrc>(() => PhotoRemoteDataSrcImpl());
   di.registerLazySingleton<AlbumLocalDataSrc>(
-      () => AlbumLocalDataSrcImpl(prefs: di()));
+      () => AlbumLocalDataSrcImpl(albumBox: di()));
   di.registerLazySingleton<PhotoLocalDataSrc>(
       () => PhotoLocalDataSrcImpl(photoBox: di()));
 
@@ -45,8 +46,10 @@ Future<void> init() async {
 
   // external
   final sharedPreferences = await SharedPreferences.getInstance();
-  final photoBox = await Hive.openBox('photos');
+  final photoBox = await Hive.openBox<AllPhotoResponses>('photos'); // open photos box
+  final albumBox = await Hive.openBox('albums'); // open albums box
   di.registerLazySingleton(() => DataConnectionChecker());
   di.registerLazySingleton(() => sharedPreferences);
   di.registerLazySingleton(() => photoBox);
+  di.registerLazySingleton(() => albumBox);
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../data_sources/local/photo_local.dart';
 import 'package:dartz/dartz.dart';
 
@@ -22,28 +24,46 @@ class PhotoRepoImpl extends PhotoRepo {
     required this.photoLocalDataSrc,
   });
 
+  /// This [getphotos] method has been built the way it is to limit accessing the placeholder API un-necessarily.
+  /// Due to the limits imposed on placeholder API, you cannot make excessive calls to their API.
+  /// An error occurs when you have exceeded your given limit and you're restricted.
+  /// 
+  /// Side Note: It is being assumed that new updates to the photo API is unlikely, so getting
+  /// fresh data isn't needed.
   @override
   Future<Either<Failure, List<PhotoResponse>?>>? getPhotos(
       String albumId) async {
-    // Try loading data from the api if there is internet connection if not
+    // Only load data from the api if there is internet connection and cache is empty if not
     // then get cached data
-    // if for some reason api call fails get data from cache
+
     if (await networkInfo.isConnected &&
         photoLocalDataSrc.boxIsEmpty(albumId)) {
       try {
         final remote = await photoRemoteDataSrc.getPhotos(albumId);
         await photoLocalDataSrc.cachePhotos(remote, albumId);
-        return Right(remote);
+        return Right(remote!.photoResponses);
       } on ServerException {
         return Left(ServerFailure());
       }
     } else {
-      // if no internet get cached data and throw cache exception on error
+      // if no internet connection and cache is not empty
+      // try getting data from cache, but if cache is empty and there's internet connection
+      // then get from api
       try {
-        final local = await photoLocalDataSrc.getCachedPhotos(albumId);
-        return Right(local);
+        AllPhotoResponses? local =
+            await photoLocalDataSrc.getCachedPhotos(albumId);
+
+        //
+        if (local == null && await networkInfo.isConnected) {
+          log('Retrieving cached photos failed - Getting photos from remote data source');
+          local = await photoRemoteDataSrc.getPhotos(albumId); // getting live data
+          await photoLocalDataSrc.cachePhotos(local, albumId); // caching new live data
+        }
+        return Right(local!.photoResponses);
       } on CacheException {
         return Left(CacheFailure());
+      } on ServerException {
+        return Left(ServerFailure());
       }
     }
   }

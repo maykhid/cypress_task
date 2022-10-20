@@ -51,3 +51,37 @@ class PhotoResponseAdapter extends TypeAdapter<PhotoResponse> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+class AllPhotoResponsesAdapter extends TypeAdapter<AllPhotoResponses> {
+  @override
+  final int typeId = 3;
+
+  @override
+  AllPhotoResponses read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return AllPhotoResponses(
+      photoResponses: (fields[1] as List).cast<PhotoResponse>(),
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, AllPhotoResponses obj) {
+    writer
+      ..writeByte(1)
+      ..writeByte(1)
+      ..write(obj.photoResponses);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AllPhotoResponsesAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}

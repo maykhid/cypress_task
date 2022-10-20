@@ -49,17 +49,21 @@ class PhotoResponse extends HiveObject {
   // List<Object?> get props => [albumId, id, title, url, thumbnailUrl];
 }
 
-// @HiveType(typeId: 1)
-// class AllPhotoResponses extends HiveObject {
-//   @HiveField(1)
-//   List<PhotoResponse> photoResponses;
+@HiveType(typeId: 3)
+class AllPhotoResponses extends HiveObject {
+  @HiveField(1)
+  List<PhotoResponse> photoResponses;
 
-//   AllPhotoResponses({required this.photoResponses});
-// }
+  AllPhotoResponses({required this.photoResponses});
 
-List<PhotoResponse> photoResponseFromMap(String str) =>
-    List<PhotoResponse>.from(
-        json.decode(str).map((x) => PhotoResponse.fromJson(x)));
+  factory AllPhotoResponses.fromJson(String str) => AllPhotoResponses(
+      photoResponses: List<PhotoResponse>.from(
+          json.decode(str).map((x) => PhotoResponse.fromJson(x))));
+}
+
+// List<PhotoResponse> photoResponseFromMap(String str) =>
+//     List<PhotoResponse>.from(
+//         json.decode(str).map((x) => PhotoResponse.fromJson(x)));
 
 String photoResponseToMap(List<PhotoResponse> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

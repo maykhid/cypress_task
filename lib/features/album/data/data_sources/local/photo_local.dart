@@ -6,32 +6,33 @@ import '../../../../../core/data/exception.dart';
 import '../../model/response/photo_response.dart';
 
 abstract class PhotoLocalDataSrc {
-  Future<List<PhotoResponse>>? getCachedPhotos(String albumId);
-  Future<void> cachePhotos(List<PhotoResponse>? response, String albumId);
+  Future<AllPhotoResponses?>? getCachedPhotos(String albumId);
+  Future<void> cachePhotos(AllPhotoResponses? response, String albumId);
   bool boxIsEmpty(String albumId);
 }
 
 class PhotoLocalDataSrcImpl implements PhotoLocalDataSrc {
-  final Box photoBox;
+  final Box<AllPhotoResponses> photoBox;
 
   PhotoLocalDataSrcImpl({required this.photoBox});
 
   @override
-  Future<List<PhotoResponse>>? getCachedPhotos(String albumId) {
+  Future<AllPhotoResponses?>? getCachedPhotos(String albumId) {
+    log('Retrieving photos - cached data...');
     if (boxIsClosed) {
       throw CacheException();
     }
-    log('Album id $albumId ${photoBox.get(albumId)[1]}');
-    return Future.value(List<PhotoResponse>.from(photoBox.get(albumId)));
+    // log('Album id $albumId ${photoBox.get(albumId)!.photoResponses}');
+    return Future.value(photoBox.get(albumId));
   }
 
   @override
   Future<void> cachePhotos(
-      List<PhotoResponse>? response, String albumId) async {
+      AllPhotoResponses? response, String albumId) async {
     if (boxIsClosed) {
       throw CacheException();
     }
-
+    log('Photos stored in cache successfully...');
     await photoBox.put(albumId, response!);
   }
 

@@ -3,10 +3,17 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 
+part 'album_response.g.dart';
+
+@HiveType(typeId: 1)
 class AlbumResponse extends Equatable{
+  @HiveField(0)
   late int userId;
+  @HiveField(1)
   late int id;
+  @HiveField(2)
   late String title;
 
   AlbumResponse({required this.userId, required this.id, required this.title});
